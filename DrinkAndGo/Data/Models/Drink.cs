@@ -15,8 +15,10 @@ namespace DrinkAndGo.Data.Models
         public string ImageUrl { get; set; }
         public string ImageThumbnailUrl { get; set; }
         public bool IsPreferredDrink { get; set; }
-        public int InStock { get; set; }
+        public bool InStock { get; set; }
+        //CategoryId will be foreign key in Category
         public int CategoryId { get; set; }
+        //
         public virtual Category Category { get; set; }
     }
 }
