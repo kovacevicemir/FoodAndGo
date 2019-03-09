@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrinkAndGo.Data.interfaces
 {
-    interface ICategoryRepository
+    public interface ICategoryRepository
     {
         //WHY ONLY GET; ?
         IEnumerable<Category> Categories { get; }

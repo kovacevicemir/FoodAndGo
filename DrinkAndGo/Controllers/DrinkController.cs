@@ -20,11 +20,17 @@ namespace DrinkAndGo.Controllers
             _drinkRepository = drinkRepository;
         }
 
-        //Returning Dummy data
+        //Returning Dummy data (action name = List, so View name is List,)
+        //Controller name = Drink so folder is drink just reminder
         public ViewResult List()
         {
             var drinks = _drinkRepository.Drinks;
             return View(drinks);
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }
