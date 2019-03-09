@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DrinkAndGo.Data.interfaces;
+using DrinkAndGo.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DrinkAndGo.Controllers
@@ -24,8 +25,10 @@ namespace DrinkAndGo.Controllers
         //Controller name = Drink so folder is drink just reminder
         public ViewResult List()
         {
-            var drinks = _drinkRepository.Drinks;
-            return View(drinks);
+            DrinkListViewModel vm = new DrinkListViewModel();
+            vm.Drinks = _drinkRepository.Drinks;
+            vm.CurrentCategory = "DrinkCategory";
+            return View(vm);
         }
 
         public IActionResult Index()
