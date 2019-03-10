@@ -10,7 +10,8 @@ namespace DrinkAndGo.Data
     public class AppDbContext : DbContext
     {
 
-        //1. Inherit from DbContext (part of EFC) 2. Ctor 3.DbSets 4.Connection string
+        //1. Inherit from DbContext (part of EFC) 2. Ctor 3.DbSets 4.Connection string in appsettings.json
+        //5. startup.cs
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
