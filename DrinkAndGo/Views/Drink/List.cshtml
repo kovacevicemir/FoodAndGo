@@ -5,12 +5,18 @@
 @{
     foreach(var drink in Model.Drinks)
     {
-<div>
-    <h4>Drink Name:@drink.Name</h4>
-    <img src="@drink.ImageUrl" alt="Image url..." class="img-responsive img-thumbnail" style="max-height: 200px; max-width:200px;" />
-    <p>Price: @drink.Price.ToString("c")</p>
-    <p>---------------------------------------------------------------</p>
-</div>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img src="@drink.ImageThumbnailUrl" alt="Alternate Text" />
+                <div class="caption">
+                    <h3 class="pull-right">@drink.Price.ToString("c")</h3>
+                    <h3>
+                        <a>@drink.Name</a>
+                    </h3>
+                    <p>@drink.ShortDescription</p>
+                </div>
+            </div>
+        </div>
     }
 }
 

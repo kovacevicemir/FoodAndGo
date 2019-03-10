@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DrinkAndGo.Data;
 using DrinkAndGo.Data.interfaces;
-using DrinkAndGo.Data.mocks;
-using DrinkAndGo.Data.Mocks;
+using DrinkAndGo.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,12 +13,16 @@ namespace DrinkAndGo
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        //Connecting to db
+        private IConfigurationRoot _configurationRoot;
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
-            Configuration = configuration;
+            _configurationRoot = new ConfigurationBuilder().SetBasePath(hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json").Build();
         }
+        //
 
-        public IConfiguration Configuration { get; }
+        //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime.
         // Use this method to add services to the container.
@@ -36,8 +36,14 @@ namespace DrinkAndGo
             });
 
             //Add our services
-            services.AddTransient<IDrinkRepository, MockDrinkRepository>();
-            services.AddTransient<ICategoryRepository, MockCategoryRepository>();
+            //db
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
+            //
+
+            //data -> get data from appDbContext by methods in DrinkRep/CatRep
+            services.AddTransient<IDrinkRepository, DrinkRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             //End here
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
